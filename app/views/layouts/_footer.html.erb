@@ -5,30 +5,38 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-<style>
-        footer{
-            position: fixed;
-            padding: 10px 10px 0px 10px;
-            bottom: 0;
-            width: 100%;
-            height: 50px;
-            background: skyblue;
-	    font-size : 20px;
-        }
-	a:hover{
-	    color: grey;
-	    text-decoration: none;
-	    background-color: white;
-	}
+    <style>
+      .footer-light {
+        background-color: #d9d9f2;
+      }
+      .footer-custom{
+          /* position: fixed; */
+          padding: 10px 10px 0px 10px;
+          bottom: 0;
+          width: 100%;
+          height: 50px;
+          background: skyblue;
+      	    font-size : 20px;
+      }
+      	a:hover{
+      	    color: grey;
+      	    text-decoration: none;
+      	    background-color: white;
+      	}
     </style>
   </head>
-  <footer>
-    <p> Click <a href="https://validator.w3.org/" target=_blank> here</a> to visit the XHTML syntax validation page </p>
+  <footer class="footer footer-light">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+      </p>
+    </div>
   </footer>
-
+  <div class="has-text-centered footer-custom">
+    <p> Click <a href="https://validator.w3.org/" target=_blank> here</a> to visit the XHTML syntax validation page </p>
+  </div>
 </html>
-
-

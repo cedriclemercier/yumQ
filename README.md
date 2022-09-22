@@ -1,24 +1,12 @@
-# README
+# Ruby on Rails Full Stack Development
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Current features
 
-Things you may want to cover:
+### Routes
 
-* Ruby version
+* `/`: Index page, currently fetch projects saved in the database
+* `/news/`: Page that fetch featured news on BangkokPost and New York Times and display Headline, excerpt and a link to the article
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### To do
+[] Display projects
+[] ...
