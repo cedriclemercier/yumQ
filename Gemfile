@@ -3,6 +3,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.1.2'
 
+gem 'capistrano'
+gem 'capistrano-rbenv'
+gem 'capistrano-rbenv-install'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
+
 gem 'nokogiri'
 gem 'httparty'
 gem 'csv'
