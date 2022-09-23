@@ -78,4 +78,15 @@ class NewsController < ApplicationController
     @news = getbkknews
     @nytnews = getnytnews
   end
+
+  def divide_by_zero
+    begin
+      puts "You are about to divide by zero"
+      @quotient = 8/0
+    rescue => exception
+      puts exception
+      puts "Exception: Divide by Zero"
+    end
+  end
+
 end
