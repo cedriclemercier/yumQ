@@ -2,7 +2,7 @@
 lock "~> 3.17.1"
 
 set :application, "ps1"
-set :repo_url, "git@gitlab.com:ait-fsad-2022/web6/lab03.git"
+set :repo_url, "git@gitlab.com:ait-fsad-2022/web6/PS1.git"
 set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default branch is :master
