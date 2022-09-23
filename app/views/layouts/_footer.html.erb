@@ -9,7 +9,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <style>
       .footer-light {
-        background-color: #d9d9f2;
+        /* background-color: #d9d9f2;c */
       }
       .footer-custom{
           /* position: fixed; */
@@ -30,13 +30,10 @@
   <footer class="footer footer-light">
     <div class="content has-text-centered">
       <p>
-        <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
       </p>
     </div>
   </footer>
   <div class="has-text-centered footer-custom">
-    <p> Click <a href="https://validator.w3.org/" target=_blank> here</a> to visit the XHTML syntax validation page </p>
+    <p> Click <a href="https://validator.w3.org/nu/?doc=<%= request.original_url %>" target=_blank> here</a> to validate XHTML syntax</p>
   </div>
 </html>

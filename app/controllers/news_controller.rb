@@ -3,7 +3,7 @@ class NewsController < ApplicationController
   end
 
   BKK_URL = "https://www.bangkokpost.com/"
-  NYT_URL = "https://www.nytimes.com/section/world"
+  NYT_URL = "https://www.nytimes.com"
 
   def getbkknews
     
@@ -36,7 +36,7 @@ class NewsController < ApplicationController
 
   def getnytnews
     
-    response = HTTParty.get(NYT_URL)
+    response = HTTParty.get(NYT_URL + '/section/world')
 
     @nynews = []
     if response.code == 200
@@ -55,7 +55,7 @@ class NewsController < ApplicationController
 
         title = container.css('h2 a').text
         excerpt = container.css('p').text
-        url = container.css('h2 a').attr('href')
+        url = NYT_URL + container.css('h2 a').attr('href')
         img = container.css('article > figure > a > img >img').attr('src')
         
         item = [title, excerpt,  url, img]
