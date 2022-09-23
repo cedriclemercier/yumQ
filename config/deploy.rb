@@ -2,13 +2,17 @@
 lock "~> 3.17.1"
 
 set :application, "ps1"
-set :repo_url, "git@gitlab.com:ait-fsad-2022/web6/PS1.git"
+set :repo_url, "git@gitlab.com:ait-fsad-2022/web6/lab03.git"
+set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :rbenv_type, :user
+set :rbenv_ruby, '3.1.2'
+set :rbenv_path, '/home/deploy/.rbenv'
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/var/www/ps1"
+set :deploy_to, "/home/deploy/ps1"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -27,7 +31,10 @@ append :linked_files, "config/database.yml", 'config/master.key'
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpacker", "public/system", "vendor", "storage"
 
 # Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, { 
+    'https_proxy' => 'http://192.41.170.23:3128/',
+    'http_proxy' => 'http://192.41.170.23:3128/'
+ }
 
 # Default value for local_user is ENV['USER']
 # set :local_user, -> { `git config user.name`.chomp }
@@ -36,4 +43,4 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpack
 set :keep_releases, 5
 
 # Uncomment the following to require manually verifying the host key before first deploy.
-# set :ssh_options, verify_host_key: :secure
+set :ssh_options, verify_host_key: :always

@@ -11,6 +11,7 @@ gem 'capistrano-rails'
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
 
+
 gem 'nokogiri'
 gem 'httparty'
 gem 'csv'
