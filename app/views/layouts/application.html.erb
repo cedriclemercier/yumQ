@@ -13,7 +13,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
-          <h1 class="title">News</h1>
+          <h1 class="title">Solutions</h1>
         </a>
       </div>
       <%# <div id="navbarBasicExample" class="navbar-menu">
@@ -24,7 +24,16 @@
         </div>
       </div> %>
     </nav>
-    <%= yield %>
-    <%= render "layouts/footer" %>
-  </body>
-</html>
+    <div class="container is-fluid">
+      <section class="hero">
+        <div class="hero-body">
+          <p class="title">
+            <%= @title %>
+          </p>
+        </div
+      </section>
+        <%= yield %>
+      </div>
+      <%= render "layouts/footer" %>
+    </body>
+  </html>

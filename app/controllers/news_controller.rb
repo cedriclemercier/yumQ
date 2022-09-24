@@ -1,4 +1,5 @@
 class NewsController < ApplicationController
+
   def show
   end
 
@@ -75,6 +76,7 @@ class NewsController < ApplicationController
   end
 
   def index
+    @title = 'News aggregator'
     @news = getbkknews
     @nytnews = getnytnews
   end
