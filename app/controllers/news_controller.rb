@@ -77,15 +77,16 @@ class NewsController < ApplicationController
   def index
     @news = getbkknews
     @nytnews = getnytnews
+    @quotient = divide_by_zero
   end
 
   def divide_by_zero
     begin
-      puts "You are about to divide by zero"
+      puts "About to divide by zero"
       @quotient = 8/0
     rescue => exception
-      puts exception
-      puts "Exception: Divide by Zero"
+     puts exception
+     puts "Exception: Divide by Zero"
     end
   end
 
