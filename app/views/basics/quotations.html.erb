@@ -1,0 +1,104 @@
+<div class="container is-fluid content">
+  <div class='content'>
+    <div class="columns">
+      <div class="column">
+        <h3>Quotations</h3>
+        <div class="block">
+          <%= form_for @quotation, :url => { :action => :quotations } do |form| %>
+            <% @quotation.errors.full_messages.each do |msg| %>
+              <p><%= msg %></p>
+            <% end %>
+            <div class="form_row">
+              <label>Search</label>
+              <%= text_field_tag :keyword, nil, placeholder: "Look up keyword..." %><%= form.submit 'Search' %>
+            </div>
+          <%end%>
+        </div>
+        <ul>
+          <% for quotation in @quotations %>
+            <li><%= h quotation.author_name %> <strong>(<%= quotation.category %>)</strong>: <i>"<%= h quotation.quote %>"</i> - <%= quotation.created_at %></li>
+            <%= form_for @quotation, :url => { :action => :quotations } do |form| %>
+              <%= hidden_field_tag 'favorite', quotation.id %>
+              <%= submit_tag "Add", :value => "Add" %>
+            <%end%>
+          <% end %>
+        </ul>
+        <br/>
+        <% if params[:sort_by] == "date" %>
+          <%= link_to "Sort by category", :action => :quotations, :sort_by => :category %>
+        <% else %>
+          <%= link_to "Sort by date", :action => :quotations, :sort_by => :date %>
+        <% end %>
+      </div>
+      <div class="column">
+        <h3>Favorites</h3>
+        <%= form_with :url => { :action => :quotations }, html: { multipart: true } do |f| %>
+          <%= f.label :attachment %>
+          <%= hidden_field_tag 'upload', 'upload' %>>
+          <%= f.file_field :attachment %>
+          <i>
+            *import JSON or XML files
+          </i>
+          <br>
+          <%= f.submit "Save" %>
+        <% end %>
+        <div class="block">
+          <%= form_with :url => { :action => :quotations } do |form| %>
+            <%= submit_tag "Remove", :name => 'clear', :value => "Clear" %>
+          <% end %>
+        </div>
+        <ul>
+          <% if current_favorites.empty? %>
+            <p>Your list is empty. Try adding new quotes.</p>
+          <%end%>
+          <% current_favorites.each do |f| %>
+            <li><%= f['quote']%>- <i><%= f['author_name']%></i></li>
+            <%= form_for @quotation, :url => { :action => :quotations } do |form| %>
+              <%= hidden_field_tag 'remove_favorite', f['id'] %>
+              <%= submit_tag "Remove", :value => "❌" %>
+            <%end%>
+          <%end%>
+        </ul>
+        <%= form_with :url => { :action => :quotations } do |form| %>
+          <%= hidden_field_tag 'export_xml', 'xml' %>
+          <%= submit_tag "", :name => 'export', :value => "Export to XML" %>
+        <% end %>
+        <%= form_with :url => { :action => :quotations } do |form| %>
+          <%= hidden_field_tag 'export_json', 'json' %>
+          <%= submit_tag "", :name => 'export', :value => "Export to JSON" %>
+        <% end %>
+      </div>
+    </div>
+    <hr/>
+    <h3>New quotation</h3>
+    <%= form_for @quotation, :url => { :action => :quotations } do |form| %>
+      <% @quotation.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+      <fieldset>
+        <legend>Enter details</legend>
+        <div class="form_row">
+          <%= form.label :author_name %>
+          <%= form.text_field :author_name, :size => 20, :maxlength => 40 %>
+        </div>
+        <div class="form_row">
+          <%= form.label :category %>
+          <%= form.select :category, Quotation.distinct.pluck(:category) %>
+        </div>
+        <div class="form_row">
+          Or add new category:
+          <%= text_field_tag(:new_category) %>
+        </div>
+        <div class="form_row">
+          <%= form.label :quote %>
+          <%= form.text_area :quote, :rows => 2, :cols => 40, :maxlength => 500 %>
+        </div>
+      </fieldset>
+      <p>
+        <div class="form_row">
+          <%= form.submit 'Create' %>
+        </div>
+      </p>
+    <% end %>
+  </div>
+</div>

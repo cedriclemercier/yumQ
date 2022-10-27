@@ -24,16 +24,16 @@
         </div>
       </div> %>
     </nav>
-    <div class="container is-fluid">
-      <section class="hero">
-        <div class="hero-body">
-          <p class="title">
-            <%= @title %>
-          </p>
-        </div
-      </section>
-        <%= yield %>
+    <section class="hero">
+      <div class="hero-body">
+        <p class="title">
+          <%= @title %>
+        </p>
       </div>
-      <%= render "layouts/footer" %>
-    </body>
-  </html>
+    </section>
+    <section class="section">
+      <%= yield %>
+    </section>
+    <%= render "layouts/footer" %>
+  </body>
+</html>
