@@ -1,0 +1,108 @@
+7 solution:
+
+psql -d ps2_development
+
+create table my_stocks (
+symbol varchar(20) not null,
+n_shares integer not null,
+date_acquired date not null
+);
+
+
+\COPY my_stocks FROM '/home/conqueror/FSAD/file';
+
+8 Solution:
+
+create table stock_prices (
+symbol varchar(20) not null,
+quote_date date not null,
+price float not null
+);
+
+insert into stock_prices select symbol,current_date as quote_date, 31.415 as price from my_stocks;
+
+create table newly_acquired_stocks (
+symbol varchar(20) not null,
+n_shares integer not null,
+date_acquired date not null
+);
+
+insert into newly_acquired_stocks select symbol,n_shares,date_acquired from my_stocks where n_shares < 10000
+
+
+9 Solution:
+
+select my_stocks.symbol as Symbol,my_stocks.n_shares as "Number of Shares",stock_prices.price as "Price Per Share", my_stocks.n_shares*stock_prices.price as "Current Value" from my_stocks INNER JOIN stock_prices ON my_stocks.symbol=stock_prices.symbol;
+
+
+10 Solution:
+
+insert into my_stocks(symbol,n_shares,date_acquired) VALUES ('nasdaq','4000','04-23-2015');
+
+select my_stocks.symbol as Symbol,my_stocks.n_shares as "Number of Shares",stock_prices.price as "Price Per Share", my_stocks.n_shares*stock_prices.price as "Current Value" from my_stocks FULL OUTER JOIN stock_prices ON my_stocks.symbol=stock_prices.symbol;
+
+11 Solution:
+
+create or replace FUNCTION ascii_value_count(symbol varchar(20))
+returns int
+LANGUAGE plpgsql
+as
+$$
+declare
+	total_count integer;
+	temp_letter VARCHAR(2);
+begin
+	total_count := 0;
+	for i IN 1..length(symbol) 
+	loop
+		temp_letter := Substr(symbol, i, 1);
+		total_count := total_count + ascii(temp_letter);
+	end loop;
+Return total_count;		
+end;
+$$;
+
+
+UPDATE stock_prices SET price = ascii_value_count(symbol);
+
+
+create or replace FUNCTION portfolio_value()
+returns SETOF text
+LANGUAGE plpgsql
+as
+$$
+declare
+	answer text;
+	share record;
+	curs1 CURSOR FOR select my_stocks.symbol symbol,my_stocks.n_shares shares,stock_prices.price price, my_stocks.n_shares*stock_prices.price value from my_stocks INNER JOIN stock_prices ON my_stocks.symbol=stock_prices.symbol;
+
+begin
+	OPEN curs1;
+	loop
+		fetch curs1 into share;
+		exit when not found;
+		answer:= share.symbol || ',		' || share.shares || ',		' || share.price || ',		' || share.value;
+		return NEXT answer;
+	end loop;
+	close curs1;
+return;
+end;
+$$;
+
+
+
+12 Solution:
+
+SELECT AVG(price) FROM stock_prices;
+
+INSERT INTO my_stocks SELECT my_stocks.symbol,n_shares*2 as n_shares,my_stocks.date_acquired from my_stocks INNER JOIN stock_prices ON my_stocks.symbol = stock_prices.symbol WHERE stock_prices.price > 531.2;
+
+SELECT symbol,n_shares from my_stocks group by symbol, n_shares;
+
+SELECT my_stocks.symbol,my_stocks.n_shares * stock_prices.price as "Total Value" from my_stocks INNER JOIN stock_prices ON my_stocks.symbol = stock_prices.symbol GROUP BY my_stocks.symbol, my_stocks.n_shares, stock_prices.price;
+
+SELECT my_stocks.symbol,my_stocks.n_shares,my_stocks.n_shares * stock_prices.price as "Total Value" FROM my_stocks INNER JOIN stock_prices ON my_stocks.symbol = stock_prices.symbol GROUP BY my_stocks.symbol, my_stocks.n_shares,stock_prices.price HAVING COUNT(my_stocks.symbol) > 1; 
+
+13 Solution:
+
+CREATE VIEW stocks_i_like AS SELECT my_stocks.symbol,my_stocks.n_shares,my_stocks.n_shares * stock_prices.price as "Total Value" FROM my_stocks INNER JOIN stock_prices ON my_stocks.symbol = stock_prices.symbol GROUP BY my_stocks.symbol, my_stocks.n_shares,stock_prices.price HAVING COUNT(my_stocks.symbol) > 1;
