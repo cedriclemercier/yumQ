@@ -1,10 +1,7 @@
 class BasicsController < ApplicationController
-  def index
-  end
 
   def index
-    # @quotations = Quotation.where("quote like ?", "%#{@search}%")
-    @quotations = Quotation.where("quote like ?", "%wrong%")
+    @users = User.all
   end
 
   def export_xml

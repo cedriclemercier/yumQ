@@ -1,3 +1,268 @@
-<% for quotation in @quotations %>
-<li><%= quotation.quote %></li>
+<style>
+table {
+	display: table;
+}
+#profile-style table tr {
+	display: table-cell;
+}
+#profile-style table tr td {
+	display: block;
+}
+
+#profile-style table tr th {
+	display: block;
+}
+</style>
+
+<div class="container content">
+<h1>Problem Set 3: Planning, Odds and Ends</h1>
+<p>The goal of our application is to create a restaurant queue ticketing and menu ordering system all in one</p>
+<li>
+Customers can scan a qr code with their mobile that will call an API, from where they get put into a queue for a table at a restaurant
+</li>
+<li>
+Once queue is released they get assigned a table and can order menu from mobile. If they scan the QR and are already signed in (using cookies/sessions), they will see the menu instead. They have option to create an account as well for loyalty benefits.
+</li>
+<li>
+The admin will be able to see queues, edit or assign tables as necessary and see what they order
+</li>
+<li>
+The system should be able to accomodate to many restaurants in the database.
+</li>
+
+
+<h2>1. User Profiles</h2>
+<div id="profile-style">
+<table border='1'>
+<tbody>
+<tr>
+<th>Photo</th>
+<th>Name</th>
+<th>Age</th>
+<th>Occupation</th>
+<th>Marital Status</th>
+<th>Housing</th>
+<th>Income</th>
+<th>Short-Term Goal</th>
+<th>Long-Term Goal</th>
+<th>Questions</th>
+<th>Technology</th>
+<th>Other Info</th>
+</tr>
+<tr>
+<% for user in @users %>
+<td><%= image_tag("#{user.img}.JPG") %></td>
+<td><%= h user.name %></td>
+<td><%= h user.age %></td>
+<td><%= h user.occupation %></td>
+<td><%= h user.marital %></td>
+<td><%= h user.housing %></td>
+<td><%= h user.income %></td>
+<td><%= h user.sgoal %></td>
+<td><%= h user.lgoal %></td>
+<td><%= h user.questions %></td>
+<td><%= h user.tech %></td>
+<td><%= h user.other %></td>
+</tr>
 <%end%>
+</tbody>
+</table>
+</div>
+<h3>User Experience Processes</h3>
+<h2>2. Offline and Online Alternatives</h2>
+<h3>Offline Alternatives</h3>
+<p>As we observed, many restaurants still use the “pen and paper” way, sometimes you get given a paper ticket of your number (or not at all, you given an estimate waiting time) while waiting for a spot in a popular and busy restaurant, and you either get called out loud directly or your number will show on screen. 
+You are unsure how long you will wait, 10mins to almost an hour and that you can’t walk away too far otherwise you may miss your spot.
+Having a way to track when it's your turn and receive a live notification of when you get a spot or close to get a spot may be very helpful.
+In the restaurant perspective, they might be able to track more accurately waiting times and downtimes if they use a IT system.
+</p>
+<h3>Online Alternatives</h3>
+<p>These are the top results from Play Store and Google Search in Thailand, and for some of them we already tried them in real life.</p>
+
+<h4>QueQ</h4>
+Advantages:
+<li>Easy and minimal interface</li>
+<li>In-app promotions</li>
+Cons:
+<li>Many bugs</li>
+<li>First onboarding can be annoying</li>
+<li>
+Lacks some features
+</li>
+<li>
+Notifications can bug and not show up 
+</li>
+
+<h2>3. Hosting and DNS</h2>
+<h3>Domain name choice</h3>
+<p>
+Our product will start servicing specific restaurants in Thailand and so will use the extension .co.th (example shopee.co.th), which is a second-level extension restricted for use in legal businesses in Thailand. For a name like yumQ, we could use yumq.co.th
+</p>
+
+<h3>DNS provider</h3>
+<p>
+All DNS providers follow the same process, after the initial payment we get access to their dashboard from where you can update DNS records. In some cases, hosting providers also provide domains (such as godaddy) but in our case, our DNS provider and hosting provider will be different, with one provided by a Thai website and the other hosted by AIT. In that case we need to grab the hostname from our server and update our nameservers in the domain registrar’s control panel. From there, the domain will be resolved automatically towards our server. It will take a while to update, as DNS propagation takes a few hours up to 48 hours.
+</p>
+
+Below are some domain name registrars offering the extension <strong>.co.th:</strong>
+
+<table>
+<tr>
+<th width="200">Name</th>
+<th>Price</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+<tr>
+<td>
+Thaidomainhosting.com
+</td>
+<td>
+฿ 900.00/year
+</td>
+<td>
+<li>Local thai solution</li>
+<li>Offer email services too</li>
+<li>In service for 20 years</li>
+<li>Support accessible on LINE</li>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+thdomain.thnic.co.th
+</td>
+<td>
+฿ 800.00/year
+</td>
+<td>
+<li>
+Cheaper
+</li>
+</td>
+<td>
+<li>
+Less services provided
+</li>
+</td>
+</tr>
+
+<tr>
+<td>
+netim.com
+</td>
+<td>
+$48.00 /year
+</td>
+<td>
+<li>Full hosting solution with DNS</li>
+<li>Free for 1 website</li>
+</td>
+<td>
+<li>Slow, as servers are in france</li>
+
+</td>
+Expensive
+</tr>
+
+</table>
+<br/>
+<p>
+Alternatively, we could also use a more global extension <strong>.com.</strong> For our project purposes we will look at shared servers only until we need to accommodate more traffic.
+</p>
+<br/>
+
+<table>
+<tr>
+<th width="200">Name</th>
+<th>Price</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+<td>
+namecheap.com
+</td>
+<td>
+<li>Up to $13.98/yr for .com domains</li>
+<li>2.18$ per months for shared server</li>
+</td>
+<td>
+<li> One of the cheapest and known hosting provider, reliable</li>
+<li> All in one solution providing various services</li>
+<li> Great user interface</li>
+<li> Email free with hosting</li>
+<li> Free custom nameservers</li>
+</td>
+<td>
+<li>Less discounts than most other providers
+</li>
+<li>No phone support</li>
+</td>
+
+<tr>
+<td>
+godaddy.com
+</td>
+
+<td>
+<li>Up to $13.39/yr, 22$ for 2 years</li>
+<li>4$ per month for shared server</li>
+
+</td>
+<td>
+<li> Most popular and cheap hosting provider with good deals</li>
+<li> Great discounting on one year most of the time</li>
+
+
+</td>
+<td>
+<li>
+Doesn’t have a good reputation in security and customer services because of its past
+</li>
+<li>
+Email hosting pricing separate and lot of upselling for other services
+</li>
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Other Hosting Providers</h3>
+<h4>AIT Servers</h4>
+<p>AIT servers is the default solution for now, providing free hosting for our application and more “DIY” configuration options.</p>
+Advantages:
+<li>Free</li>
+<li>Easy access via the campus</li>
+Cons:
+<li>Often down and require frequent backups</li>
+<li>Proxy can be a hassle to set up at first</li>
+<li>We need to do sysadmin work as well</li>
+<br>
+<h4>Heroku</h4>
+<p>Heroku is a cloud-as-service platform that enables developers to easily deploy applications for free without the hassle of server configuration. Owned by Salesforce, it will end its free tier usage at the end of November 2022.</p>
+Advantages:
+<li>Easy deployment of various applications using any framework such as Rails</li>
+<li>Most backend tools are provided if needed including Postgresql, Cron jobs, Backups, continuous integration and deployment with Github</li>
+<li>Focus on developing and deploying</li>
+Cons:
+<li>Not free anymore on the 28th November</li>
+<br>
+<h4>Digital Ocean</h4>
+<p>Digitalocean offers a more DIY solution than other hosting solutions as we need to start our own Linux droplet and do the same server setup that we did for AIT server.</p>
+Advantages:
+<li>More freedom, DIY solution on server setup (good or bad)</li>
+<li>Many discounts to get started including from Github Education</li>
+Cons:
+<li>Must be willing to spend efforts in sysadmin</li>
+<li>Can be more expensive than other solutions if not done properly</li>
+<h3>Moving to a more permanent server</h3>
+<p>This is a fairly easy task if the hosting service already provides continuous deployment service for rails applications like Heroku, otherwise redo the server configuration setups will be required.
+Database can be dumped and imported easily into a new Postgresql server</p>
+
+<h2>4. Intellectual Property</h2>
+<p>All title to and the rights in the Services, including any and all technology, software, and content, including ownership rights to patents (registrations, renewals, and pending applications), copyrights, trademarks, trade secrets, the Company’s or third-party hardware, other technology is exclusive property of the company and developers.
+Trademarks, graphics such as logos are trademarks are the trademarks of their respective owners
+</p>
