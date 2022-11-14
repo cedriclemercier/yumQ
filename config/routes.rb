@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   devise_for :users, controllers: { registrations: 'registrations' }
   get 'user/index'
   get '/news', to: 'news#index'
   get '/basics', to: 'basics#quotations'
+  get '/admin' , to: 'basics#admin'
   get '/planning', to: 'basics#index'
   match '/basics', :to => "basics#quotations", :via => [:get, :post]
   resources :basics
