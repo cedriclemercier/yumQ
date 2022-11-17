@@ -32,7 +32,7 @@ The system should be able to accomodate to many restaurants in the database.
 
 #commenting out for now since the table has been changed and no longer has the previous data
 
-<% if false %>
+
 <h2>1. User Profiles</h2>
 <div id="profile-style">
 <table border='1'>
@@ -52,26 +52,26 @@ The system should be able to accomodate to many restaurants in the database.
 <th>Other Info</th>
 </tr>
 <tr>
-<% for user in @users %>
-<td><%= image_tag("#{user.img}.JPG") %></td>
-<td><%= h user.name %></td>
-<td><%= h user.age %></td>
-<td><%= h user.occupation %></td>
-<td><%= h user.marital %></td>
-<td><%= h user.housing %></td>
-<td><%= h user.income %></td>
-<td><%= h user.sgoal %></td>
-<td><%= h user.lgoal %></td>
-<td><%= h user.questions %></td>
-<td><%= h user.tech %></td>
-<td><%= h user.other %></td>
+<% for profile in @profiles %>
+<td><%= image_tag("#{profile.img}.JPG") %></td>
+<td><%= h profile.name %></td>
+<td><%= h profile.age %></td>
+<td><%= h profile.occupation %></td>
+<td><%= h profile.martial %></td>
+<td><%= h profile.housing %></td>
+<td><%= h profile.income %></td>
+<td><%= h profile.sgoal %></td>
+<td><%= h profile.lgoal %></td>
+<td><%= h profile.questions %></td>
+<td><%= h profile.tech %></td>
+<td><%= h profile.other %></td>
 </tr>
 <%end%>
 </tbody>
 </table>
 </div>
 
-<% end %>
+
 
 <h3>User Experience Processes</h3>
 <h2>2. Offline and Online Alternatives</h2>
