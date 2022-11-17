@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_180247) do
+ActiveRecord::Schema.define(version: 2022_11_17_095713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,12 +41,68 @@ ActiveRecord::Schema.define(version: 2022_11_14_180247) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "menus", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.string "photo_url"
+    t.bigint "restaurant_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "menu_id", null: false
+    t.bigint "order_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_id"], name: "index_order_items_on_menu_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.datetime "date"
+    t.bigint "user_id", null: false
+    t.bigint "wait_queue_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["wait_queue_id"], name: "index_orders_on_wait_queue_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.text "img"
+    t.text "name"
+    t.text "age"
+    t.text "occupation"
+    t.text "martial"
+    t.text "housing"
+    t.decimal "income"
+    t.text "sgoal"
+    t.text "lgoal"
+    t.text "questions"
+    t.text "tech"
+    t.text "other"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "quotations", force: :cascade do |t|
     t.string "author_name"
     t.string "category"
     t.text "quote"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "name"
+    t.text "address"
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_restaurants_on_owner_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -58,11 +114,28 @@ ActiveRecord::Schema.define(version: 2022_11_14_180247) do
     t.string "first_name"
     t.string "last_name"
     t.string "username"
-    t.text "phone_number"
+    t.integer "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wait_queues", force: :cascade do |t|
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.boolean "status"
+    t.bigint "restaurant_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_wait_queues_on_restaurant_id"
+  end
+
+  add_foreign_key "menus", "restaurants"
+  add_foreign_key "order_items", "menus"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders", "wait_queues"
+  add_foreign_key "restaurants", "users", column: "owner_id"
+  add_foreign_key "wait_queues", "restaurants"
 end
