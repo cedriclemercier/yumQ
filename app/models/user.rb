@@ -13,12 +13,12 @@ class User < ApplicationRecord
   has_many :restaurants
   has_many :orders
 
-  # def active_for_authentication?
-  #   super && special_condition_is_valid?
-  # end
+  def active_for_authentication?
+    super && special_condition_is_valid?
+  end
 
-  # def active_for_authentication?
-  #   super && !self.banned
-  # end
+  def active_for_authentication?
+    super && !self.banned
+  end
 
 end

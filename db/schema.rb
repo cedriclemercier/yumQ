@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_19_071906) do
+ActiveRecord::Schema.define(version: 2022_11_19_091728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2022_11_19_071906) do
 
   create_table "orders", force: :cascade do |t|
     t.datetime "date"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.bigint "wait_queue_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 2022_11_19_071906) do
     t.string "first_name"
     t.string "last_name"
     t.string "username"
-    t.text "phone_number"
+    t.integer "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "banned"
