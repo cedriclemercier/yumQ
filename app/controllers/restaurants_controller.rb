@@ -1,8 +1,6 @@
 class RestaurantsController < InheritedResources::Base
   before_action :get_user
   before_action :set_restaurant, only: %i[ show edit update destroy ]
-  
-  
 
   def index
     @restaurants = Restaurant.where(user_id: @current_user)
