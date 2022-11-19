@@ -23,9 +23,7 @@ class RestaurantsController < InheritedResources::Base
   end
 
   def create
-    new_params = restaurant_params.merge(:user_id => @current_user)
-    # puts new_params
-    # puts restaurant_params
+    new_params = restaurant_params.merge(:user_id => @current_user, :queuetime => default_wait_queue_time)
     @restaurant = current_user.restaurants.new(new_params)
     respond_to do |format|
       if @restaurant.save

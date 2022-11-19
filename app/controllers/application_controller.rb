@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
   def current_favorites
     session[:favorites] ||= []
   end
+
+  def default_wait_queue_time
+    @default_wait_time = 10
+  end
 end
