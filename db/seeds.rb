@@ -9,4 +9,3 @@ AdminUser.create(email: 'admin@example.com', password: 'password', password_conf
 AdminUser.create(email: 'matthew@ait.asia', password: 'Fullstack@6', password_confirmation: 'Fullstack@6') if Rails.env.development?
 AdminUser.create(email: 'cedric@cait.asia', password: 'cedric@team6', password_confirmation: 'cedric@team6') if Rails.env.development?
 AdminUser.create(email: 'lakshmi@ait.asia', password: 'lakshman@team6', password_confirmation: 'lakshman@team6') if Rails.env.development?
-

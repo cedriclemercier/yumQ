@@ -1,13 +1,5 @@
-  
-<li>
-  <%= link_to "Problem set 1: News and divide by zero", news_path %>
-</li>
-<li>
-  <%= link_to "Problem set 2: Famous Quotes", basics_path %>
-</li>
-<li>
-  <%= link_to "Problem set 3: Planning", planning_path %>
-</li>
-<li>
-  <%= link_to "Problem set 4: User Management", admin_path %>
-</li>
+<% if current_user%>
+<%= link_to "Manage restaurants",  restaurants_path %>
+<%else%>
+<p>Log in to create your restaurant</p>
+<%end%>

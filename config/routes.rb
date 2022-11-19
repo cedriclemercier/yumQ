@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :restaurants
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers: { registrations: 'registrations' }
@@ -11,9 +10,12 @@ Rails.application.routes.draw do
   match '/basics', :to => "basics#quotations", :via => [:get, :post]
   resources :basics
   resources :quotations
-  resources :user
+  resources :restaurants do
+    resources :menus
+  end
   resources :profile
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get '/solutions', to: 'site#solutions'
   root to: 'site#index'
 end
 

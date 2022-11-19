@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<h2>Restaurant Details</h2>
 <p>
   <strong>Name:</strong>
   <%= @restaurant.name %>
@@ -9,11 +9,50 @@
   <strong>Address:</strong>
   <%= @restaurant.address %>
 </p>
-
-<p>
-  <strong>User:</strong>
-  <%= @restaurant.user_id %>
-</p>
-
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>
+
+
+<hr>
+<h2>Staff</h2>
+# TODO
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Name</th>
+  </tr>
+</thead>
+<tbody>
+  <% for staff in @menus %>
+  <tr>
+    <td></td>
+  </tr>
+  <%end%>
+</tbody>
+</table>
+<%= link_to 'Add employee'%>
+
+
+<hr>
+<h2>Menus</h2>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Photo_URL</th>
+  </tr>
+</thead>
+<tbody>
+  <% for menu in @menus%>
+  <tr>
+    <td><%= menu.name %></td>
+    <td><%= menu.price %></td>
+    <td><img src=<%= menu.photo_url %> width="100px" /></td>
+    <td></td>
+  </tr>
+  <%end%>
+</tbody>
+</table>
+<%= link_to 'Add new menu', new_restaurant_menu_path(@restaurant) %>
+

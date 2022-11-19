@@ -1,0 +1,22 @@
+<%= form_for @menu, :url => { :action => :create } do |form| %>
+
+<div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :photo_url %>
+    <%= form.text_area :photo_url %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+<%end%>
