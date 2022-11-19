@@ -1,4 +1,6 @@
+<%= link_to "New Queue",  wait_queue_index_path, method: :post %>
 <% if current_user%>
+<br/>
 <%= link_to "Manage restaurants",  restaurants_path %>
 <%else%>
 <p>Log in to create your restaurant</p>

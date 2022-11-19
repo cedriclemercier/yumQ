@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   match '/basics', :to => "basics#quotations", :via => [:get, :post]
   resources :basics
   resources :quotations
+  resources :wait_queue
   resources :restaurants do
     resources :menus
   end

@@ -1,5 +1,7 @@
 class RestaurantsController < InheritedResources::Base
   before_action :get_user
+  before_action :set_restaurant, only: %i[ show edit update destroy ]
+  
   
 
   def index
@@ -12,7 +14,6 @@ class RestaurantsController < InheritedResources::Base
   end
 
   def show 
-    set_restaurant
     @menus = Menu.where(restaurant_id: params[:id])
   end
 
@@ -37,6 +38,18 @@ class RestaurantsController < InheritedResources::Base
     end
   end
 
+  def update
+    respond_to do |format|
+      if @restaurant.update(restaurant_params)
+        format.html { redirect_to restaurant_url(@restaurant), notice: "restaurant was successfully updated." }
+        format.json { render :show, status: :ok, location: @restaurant }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @restaurant.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   private
   
@@ -49,7 +62,7 @@ class RestaurantsController < InheritedResources::Base
   end
   
   def restaurant_params
-    params.require(:restaurant).permit(:name, :address, :user_id)
+    params.require(:restaurant).permit(:name, :address, :user_id, :queuetime)
   end
 
 end

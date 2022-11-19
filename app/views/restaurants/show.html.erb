@@ -9,6 +9,11 @@
   <strong>Address:</strong>
   <%= @restaurant.address %>
 </p>
+
+<p>
+  <strong>Default queue time:</strong>
+  <%= @restaurant.queuetime %> mins
+</p>
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>
 
