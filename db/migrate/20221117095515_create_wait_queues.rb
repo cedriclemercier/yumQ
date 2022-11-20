@@ -5,7 +5,6 @@ class CreateWaitQueues < ActiveRecord::Migration[6.1]
       t.datetime :end_date
       t.boolean :status
       t.references :restaurant, null: false, foreign_key: true
-
       t.timestamps
     end
   end

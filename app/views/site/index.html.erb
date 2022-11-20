@@ -1,4 +1,10 @@
-<%= link_to "New Queue",  wait_queue_index_path, method: :post %>
+<%= form_with url: wait_queue_index_path do |form| %>
+    <%= form.label 'Create a new queue (TEMPORARY)' %>
+    <%= form.number_field :restaurant_id, :placeholder => 'Enter restaurant id' %>
+    <%= form.submit 'Create' %>
+<% end %>
+
+<%# link_to "New Queue",  wait_queue_index_path, method: :post %>
 <% if current_user%>
 <br/>
 <%= link_to "Manage restaurants",  restaurants_path %>

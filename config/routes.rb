@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :quotations
   resources :wait_queue
   resources :restaurants do
+    resources :restaurant_tables
     resources :menus
   end
   resources :profile

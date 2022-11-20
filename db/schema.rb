@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_19_152112) do
+ActiveRecord::Schema.define(version: 2022_11_20_134253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,18 @@ ActiveRecord::Schema.define(version: 2022_11_19_152112) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "restaurant_tables", force: :cascade do |t|
+    t.boolean "occupied", default: false
+    t.bigint "user_id", null: true
+    t.bigint "restaurant_id", null: true
+    t.datetime "release_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "tableno"
+    t.index ["restaurant_id"], name: "index_restaurant_tables_on_restaurant_id"
+    t.index ["user_id"], name: "index_restaurant_tables_on_user_id"
+  end
+
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
     t.text "address"
@@ -126,7 +138,7 @@ ActiveRecord::Schema.define(version: 2022_11_19_152112) do
   create_table "wait_queues", force: :cascade do |t|
     t.datetime "start_date"
     t.datetime "end_date"
-    t.boolean "status"
+    t.integer "status"
     t.bigint "restaurant_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -140,6 +152,8 @@ ActiveRecord::Schema.define(version: 2022_11_19_152112) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "wait_queues"
+  add_foreign_key "restaurant_tables", "restaurants"
+  add_foreign_key "restaurant_tables", "users"
   add_foreign_key "restaurants", "users"
   add_foreign_key "wait_queues", "restaurants"
 end

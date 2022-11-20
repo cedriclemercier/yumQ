@@ -1,3 +1,10 @@
 <h2>Your Queues</h2>
 
+<% if @minutes_left == 0 %>
+
+Please wait to be seated!
+
+<% else %>
 There is <strong><%= @minutes_left %> minutes</strong> left
+
+<%end%>

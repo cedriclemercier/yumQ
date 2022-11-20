@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>id</th>
       <th>Name</th>
       <th>Address</th>
       <th>User</th>
@@ -15,6 +16,7 @@
   <tbody>
     <% @restaurants.each do |restaurant| %>
       <tr>
+        <td><%= restaurant.id %></td>
         <td><%= restaurant.name %></td>
         <td><%= restaurant.address %></td>
         <td><%= link_to 'Show', restaurant %></td>

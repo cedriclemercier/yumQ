@@ -17,13 +17,8 @@
 * `httparty`: Great helper for handling requests and responses
 * `devise`: Used for the creation of the User Registration and Login pages
 * `activeadmin` : Used for the creation of the Admin panel
+* `timedifference` : Used to 'humanize' datetime formats quickly, since we used a lot throughout our app
 
 ## Useful Tools
 
 * `Gitleaks` : Gitleaks is used to detect and secure the exposed sensitive information such as secret keys, database passwords, ssh keys and other sensitive information in our repositories
-
-### To do
-[x] Display projects
-[ ] Finish capistrano deployment pipeline on AIT Server
-
-

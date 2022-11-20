@@ -10,6 +10,7 @@ gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
+gem 'time_difference'
 
 gem 'activeadmin'
 gem 'devise'

@@ -14,8 +14,12 @@
   <strong>Default queue time:</strong>
   <%= @restaurant.queuetime %> mins
 </p>
+
+
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>
+<br/>
+<%= link_to 'Manage tables', restaurant_restaurant_tables_path(@restaurant) %>
 
 
 <hr>
@@ -60,4 +64,3 @@
 </tbody>
 </table>
 <%= link_to 'Add new menu', new_restaurant_menu_path(@restaurant) %>
-

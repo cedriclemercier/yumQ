@@ -1,0 +1,43 @@
+<h2>Tables</h2>
+
+<h3>Restaurant Details</h3>
+<p>
+  <strong>Name:</strong>
+  <%= @restaurant.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @restaurant.address %>
+</p>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>No.</th>
+    <th>Status</th>
+    <th>Updated</th>
+    <th>Current customer seated</th>
+    <th>Release at</th>
+    <th>Mins left</th>
+    <th colspan="2"></th>
+  </tr>
+</thead>
+<tbody>
+<% @tables.each do |table| %>
+    <tr>
+        <td><%=table.tableno%></td>
+        <td><%=table.occupied? ? 'Busy' : 'Free'%></td>
+        <td><%=table.updated_at.to_time.strftime('%B %e at %l:%M %p') %></td>
+        <td><%= table.user_id %></td>
+        <td><%= table.release_at? ? table.release_at.to_time.strftime('%B %e at %l:%M %p') : '' %></td>
+        <td><%= table.release_at? ? TimeDifference.between(table.release_at, DateTime.now).humanize : '' %></td>
+        <td><%= link_to 'Free', restaurant_restaurant_table_path(@restaurant, :id=> table.id), method: :patch %> 
+        | <%= link_to 'Delete', restaurant_restaurant_table_path(@restaurant, :id=> table.id), method: :delete %></td>
+    </tr>
+<%end%>
+</tbody>
+</table>
+
+<%= link_to "New Table",  restaurant_restaurant_tables_path, method: :post %>
+<br/>
+<%= link_to 'Back', restaurant_path(@restaurant) %>
