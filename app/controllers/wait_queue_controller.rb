@@ -11,6 +11,7 @@ class WaitQueueController < ApplicationController
         end_at = @current_wait_queue.end_date
         now = DateTime.now
         @minutes_left = ((end_at - now)/60).to_i
+        @time_left = TimeDifference.between(end_at, now).humanize
     end
 
     def create
@@ -88,6 +89,12 @@ class WaitQueueController < ApplicationController
     # TODO. Current placeholder, in the future restaurant_id will be given by POST request through QR Code
     def set_restaurant
         @restaurant = Restaurant.find(params[:restaurant_id])
+        rescue ActiveRecord::RecordNotFound => e
+            # render html: {
+            # error: e.to_s,
+            # }, status: :not_found
+            @error = e.to_s + '. Or try to create a new restaurant?'
+            render action: "error", message: e.to_s and return
     end
 
     def wait_queue_params
