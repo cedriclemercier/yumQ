@@ -12,7 +12,29 @@ class RestaurantsController < InheritedResources::Base
   end
 
   def show 
+    if params[:search_name]
+      @employees = User.where(email: params[:search_name])
+    end
+
+    if params[:add_new_employee]
+      @employee = User.find_by_email(params[:add_new_employee])
+      @new_staff = Staff.new({:user_id => @employee.id, :restaurant_id => @restaurant.id})
+      respond_to do |format|
+        if @new_staff.save
+          format.html { redirect_to restaurant_url(@restaurant), notice: "Staff was successfully added." }
+          format.json { render :show, status: :created, location: @restaurant }
+        else
+          format.html { render :show, status: :unprocessable_entity }
+          format.json { render json: @restaurant.errors, status: :unprocessable_entity }
+        end
+      end
+
+    end
     @menus = Menu.where(restaurant_id: params[:id])
+    @staff_list = @restaurant.users
+    @queues = @restaurant.wait_queue
+    puts "------------------------------------"
+    puts @queues
   end
 
   # GET /projects/new
@@ -25,7 +47,7 @@ class RestaurantsController < InheritedResources::Base
     @restaurant = current_user.restaurants.new(new_params)
     respond_to do |format|
       if @restaurant.save
-        format.html { redirect_to restaurant_url(@restaurant), notice: "Project was successfully created." }
+        format.html { redirect_to restaurant_url(@restaurant), notice: "Restaurant was successfully created." }
         format.json { render :show, status: :created, location: @restaurant }
       else
         format.html { render :new, status: :unprocessable_entity }

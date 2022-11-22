@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_20_134253) do
+ActiveRecord::Schema.define(version: 2022_11_22_131946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(version: 2022_11_20_134253) do
 
   create_table "restaurant_tables", force: :cascade do |t|
     t.boolean "occupied", default: false
-    t.bigint "user_id", null: true
-    t.bigint "restaurant_id", null: true
+    t.bigint "user_id"
+    t.bigint "restaurant_id"
     t.datetime "release_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -116,6 +116,16 @@ ActiveRecord::Schema.define(version: 2022_11_20_134253) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "queuetime"
     t.index ["user_id"], name: "index_restaurants_on_user_id"
+  end
+
+  create_table "staffs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "restaurant_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_staffs_on_restaurant_id"
+    t.index ["user_id", "restaurant_id"], name: "index_staffs_on_user_id_and_restaurant_id", unique: true
+    t.index ["user_id"], name: "index_staffs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -155,5 +165,7 @@ ActiveRecord::Schema.define(version: 2022_11_20_134253) do
   add_foreign_key "restaurant_tables", "restaurants"
   add_foreign_key "restaurant_tables", "users"
   add_foreign_key "restaurants", "users"
+  add_foreign_key "staffs", "restaurants"
+  add_foreign_key "staffs", "users"
   add_foreign_key "wait_queues", "restaurants"
 end

@@ -7,7 +7,7 @@ class WaitQueueController < ApplicationController
     end
 
     def show
-        @current_wait_queue = WaitQueue.first()
+        @current_wait_queue = WaitQueue.find_by_user_id(current_user.id)
         end_at = @current_wait_queue.end_date
         now = DateTime.now
         @minutes_left = ((end_at - now)/60).to_i

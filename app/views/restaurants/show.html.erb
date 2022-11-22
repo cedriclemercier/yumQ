@@ -1,26 +1,31 @@
-<p id="notice"><%= notice %></p>
-<h2>Restaurant Details</h2>
-<p>
-  <strong>Name:</strong>
-  <%= @restaurant.name %>
-</p>
+<div class="container">
 
-<p>
-  <strong>Address:</strong>
-  <%= @restaurant.address %>
-</p>
+<div class="columns">
 
-<p>
-  <strong>Default queue time:</strong>
-  <%= @restaurant.queuetime %> mins
-</p>
+<div class="column is-two-thirds">
+
+    <p id="notice"><%= notice %></p>
+    <h2>Restaurant Details</h2>
+    <p>
+      <strong>Name:</strong>
+      <%= @restaurant.name %>
+    </p>
+
+    <p>
+      <strong>Address:</strong>
+      <%= @restaurant.address %>
+    </p>
+
+    <p>
+      <strong>Default queue time:</strong>
+      <%= @restaurant.queuetime %> mins
+    </p>
 
 
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back', restaurants_path %>
-<br/>
-<%= link_to 'Manage tables', restaurant_restaurant_tables_path(@restaurant) %>
-
+    <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+    <%= link_to 'Back', restaurants_path %>
+    <br/>
+    <%= link_to 'Manage tables', restaurant_restaurant_tables_path(@restaurant) %>
 
 <hr>
 <h2>Staff</h2>
@@ -28,19 +33,57 @@
 <table class="table table-striped">
 <thead>
   <tr>
-    <th>Name</th>
+    <th>Username</th>
+    <th>first_name</th>
+    <th>Last_name</th>
+    <th>phone_number</th>
   </tr>
 </thead>
 <tbody>
-  <% for staff in @menus %>
+  <% @staff_list.each do |staff| %>
   <tr>
-    <td></td>
+    <td><%= staff.id %></td>
+    <td><%= staff.first_name %></td>
+    <td><%= staff.last_name %></td>
+    <td><%= staff.phone_number %></td>
   </tr>
   <%end%>
 </tbody>
 </table>
-<%= link_to 'Add employee'%>
-
+<%= form_with :url => { :action => :show } do |form| %>
+<div class="field is-grouped">
+ <div class="control is-expanded">
+  <%= form.text_field :search_name, :placeholder => 'e.g st122004@ait.asia ', :class => 'input' %>
+  </div>
+  <div class="control">
+  <%= form.submit 'Search', :class => "button is-info" %>
+  </div>
+</div>
+<% end %>
+<% if defined?(@employees) %>
+<div class="columns">
+  <div class="column">
+  <% if @employees.length() == 0 %>
+    Can't find user with that email.
+  <%else%>
+    <table class="table table-striped">
+      <tr>
+        <th>Email</th>
+        <th>First name</th>
+        <th></th>
+      </tr>
+      <% @employees.each do |employee| %>
+      <tr>
+        <td><%= employee.email %></td>
+        <td><%= employee.first_name %></td>
+        <td><%= button_to 'Add', {:action => :show, :add_new_employee => employee.email} %></td>
+      </tr>
+      <% end %>
+    </table>
+    <%end%>
+  </div>
+</div>
+<% end %>
 
 <hr>
 <h2>Menus</h2>
@@ -58,9 +101,42 @@
     <td><%= menu.name %></td>
     <td><%= menu.price %></td>
     <td><img src=<%= menu.photo_url %> width="100px" /></td>
-    <td></td>
+  </tr>
+  <%end%>
+</tbody>
+</table> N 
+
+    
+
+ Add Index  Add Column 
+<%= link_to 'Add new menu', new_restaurant_menu_path(@restaurant) %>
+</div>
+
+<div class="column is-one-third">
+  <h2>Queues</h2>
+  <table class="table table-striped">
+<thead>
+  <tr>
+    <th>Userid</th>
+    <th>Status</th>
+    <th>Started</th>
+    <th>End in</th>
+  </tr>
+</thead>
+<tbody>
+  <% @queues.each do |q|%>
+  <tr>
+    <td><%= q.user_id %></td>
+    <td><%= q.status %></td>
+    <td><%= q.created_at %></td>
+    <td><%= q.end_date %></td>
   </tr>
   <%end%>
 </tbody>
 </table>
-<%= link_to 'Add new menu', new_restaurant_menu_path(@restaurant) %>
+</div>
+
+</div> <%# Columns %>
+
+</div> <%# Container %>
+

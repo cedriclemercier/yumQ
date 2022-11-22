@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :menus
   end
   resources :profile
+  post '/restaurants/:id' => 'restaurants#show'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get '/solutions', to: 'site#solutions'
   root to: 'site#index'
