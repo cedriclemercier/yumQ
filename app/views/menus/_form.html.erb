@@ -1,4 +1,4 @@
-<%= form_for @menu, :url => { :action => :create } do |form| %>
+<%= form_with(model: [@restaurant, @menu]) do |form| %>
 
 <div class="field">
     <%= form.label :name %>
@@ -13,6 +13,7 @@
   <div class="field">
     <%= form.label :photo_url %>
     <%= form.text_area :photo_url %>
+  <img src=<%= @menu.photo_url %> width="100px" />
   </div>
 
   <div class="actions">

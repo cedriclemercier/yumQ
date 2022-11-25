@@ -37,15 +37,17 @@
     <th>first_name</th>
     <th>Last_name</th>
     <th>phone_number</th>
+    <th></th>
   </tr>
 </thead>
 <tbody>
   <% @staff_list.each do |staff| %>
   <tr>
-    <td><%= staff.id %></td>
+    <td><%= staff.username %></td>
     <td><%= staff.first_name %></td>
     <td><%= staff.last_name %></td>
     <td><%= staff.phone_number %></td>
+    <td><%= button_to 'Remove', {:action => :show, :remove_employee => staff.email} %></td>
   </tr>
   <%end%>
 </tbody>
@@ -93,6 +95,7 @@
     <th>Name</th>
     <th>Price</th>
     <th>Photo_URL</th>
+    <th colspan=2></th>
   </tr>
 </thead>
 <tbody>
@@ -101,14 +104,12 @@
     <td><%= menu.name %></td>
     <td><%= menu.price %></td>
     <td><img src=<%= menu.photo_url %> width="100px" /></td>
+    <td><%= link_to 'Edit', edit_restaurant_menu_path(@restaurant, menu) %></td>
+    <td><%= link_to "Delete", restaurant_menu_url(@restaurant, menu), method: :delete %></td>
   </tr>
   <%end%>
 </tbody>
-</table> N 
-
-    
-
- Add Index  Add Column 
+</table> 
 <%= link_to 'Add new menu', new_restaurant_menu_path(@restaurant) %>
 </div>
 

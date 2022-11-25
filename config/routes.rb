@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :restaurants do
     resources :restaurant_tables
     resources :menus
+    resources :users, :path => "/satff"
   end
   resources :profile
   post '/restaurants/:id' => 'restaurants#show'

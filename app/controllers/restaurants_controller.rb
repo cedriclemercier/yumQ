@@ -28,26 +28,32 @@ class RestaurantsController < InheritedResources::Base
           format.json { render json: @restaurant.errors, status: :unprocessable_entity }
         end
       end
-
     end
+
+    if params[:remove_employee]
+      user = User.find_by_email(params[:remove_employee])
+      @restaurant.staffs.find_by_user_id(user).delete
+    end
+
+
+
     @menus = Menu.where(restaurant_id: params[:id])
     @staff_list = @restaurant.users
     @queues = @restaurant.wait_queue
-    puts "------------------------------------"
-    puts @queues
   end
 
   # GET /projects/new
   def new
-    @restaurant = current_user.restaurants.build
+    @restaurant = current_user.restaurants.new
   end
 
   def create
-    new_params = restaurant_params.merge(:user_id => @current_user, :queuetime => default_wait_queue_time)
-    @restaurant = current_user.restaurants.new(new_params)
+    @restaurant = current_user.restaurants.create(restaurant_params)
+    @restaurant.user_id = current_user.id
+    @restaurant.queuetime = default_wait_queue_time
     respond_to do |format|
       if @restaurant.save
-        format.html { redirect_to restaurant_url(@restaurant), notice: "Restaurant was successfully created." }
+        format.html { redirect_to @restaurant, notice: "Restaurant was successfully created." }
         format.json { render :show, status: :created, location: @restaurant }
       else
         format.html { render :new, status: :unprocessable_entity }
