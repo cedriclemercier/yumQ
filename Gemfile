@@ -19,6 +19,8 @@ gem 'httparty'
 gem 'csv'
 gem 'net-smtp'
 gem 'rails_refactor'
+gem 'rqrcode', "~> 2.1"
+gem 'chunky_png', "~> 1.4"
 gem 'rails', '~> 6.1.7'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'

@@ -7,4 +7,11 @@ class Restaurant < ApplicationRecord
   has_many :users, through: :staffs
   
   accepts_nested_attributes_for :user
+
+  has_one_attached :qr_code
+
+  after_create :generate_qr
+  def generate_qr
+    GenerateQr.call(self)
+  end
 end
