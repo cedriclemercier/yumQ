@@ -10,8 +10,16 @@ class Restaurant < ApplicationRecord
 
   has_one_attached :qr_code
 
-  after_create :generate_qr
-  def generate_qr
-    GenerateQr.call(self)
+  def self.search_name(search)
+    with_attached_qr_code.
+      references(:attachment_attachment).
+      where(ActiveStorage::Blob.arel_table[:filename].matches("%#{search}%"))
   end
+
+  # after_create :generate_qr
+
+  # def generate_qr
+  #   GenerateQr.call(self)
+  # end
+  
 end

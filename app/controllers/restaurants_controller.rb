@@ -53,6 +53,8 @@ class RestaurantsController < InheritedResources::Base
     @restaurant.queuetime = default_wait_queue_time
     respond_to do |format|
       if @restaurant.save
+        #  CREATE QR CODE HERE
+        create_qr_code(@restaurant)
         format.html { redirect_to @restaurant, notice: "Restaurant was successfully created." }
         format.json { render :show, status: :created, location: @restaurant }
       else
@@ -74,6 +76,15 @@ class RestaurantsController < InheritedResources::Base
     end
   end
 
+  def destroy
+    qr_id = @restaurant.qr_code_blob.filename
+    File.delete("tmp/#{qr_id}.png")
+    super()
+  end
+
+  def create_qr_code(restaurant)
+    GenerateQr.new(restaurant, request.host).call()
+  end
 
   private
   

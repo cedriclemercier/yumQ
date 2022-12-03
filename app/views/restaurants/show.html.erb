@@ -6,6 +6,7 @@
 
     <p id="notice"><%= notice %></p>
     <h2>Restaurant Details</h2>
+    <%= image_tag(@restaurant.qr_code,size: "250")  if @restaurant.qr_code.attached? %>
     <p>
       <strong>Name:</strong>
       <%= @restaurant.name %>
@@ -29,7 +30,6 @@
 
 <hr>
 <h2>Staff</h2>
-# TODO
 <table class="table table-striped">
 <thead>
   <tr>
@@ -55,6 +55,7 @@
 <%= form_with :url => { :action => :show } do |form| %>
 <div class="field is-grouped">
  <div class="control is-expanded">
+  <%= form.label :search_name, "Add employeees"%>
   <%= form.text_field :search_name, :placeholder => 'e.g st122004@ait.asia ', :class => 'input' %>
   </div>
   <div class="control">

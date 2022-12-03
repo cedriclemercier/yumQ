@@ -3,7 +3,15 @@ class WaitQueueController < ApplicationController
     before_action :set_restaurant, only: %i[ create edit destroy update ]
     before_action :set_current_queue, only: %i[ create ]
 
+    
+
     def index
+        @restaurant_q = Restaurant.search_name(params[:code])
+        if (@restaurant_q.length == 0)
+            render :status => 404
+            return
+        end
+        @restaurant_q = @restaurant_q[0]
     end
 
     def show
@@ -15,8 +23,6 @@ class WaitQueueController < ApplicationController
     end
 
     def create
-        puts '--------------------'
-        puts params[:restaurant_id]
         # If user is signed in use current logged in
         if user_signed_in?
 

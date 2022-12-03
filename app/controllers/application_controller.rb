@@ -12,4 +12,9 @@ class ApplicationController < ActionController::Base
   def default_wait_queue_time
     @default_wait_time = 10
   end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+  
 end
