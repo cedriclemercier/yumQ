@@ -1,25 +1,32 @@
 class WaitQueueController < ApplicationController
 
-    before_action :set_restaurant, only: %i[ create edit destroy update ]
-    before_action :set_current_queue, only: %i[ create ]
+    before_action :set_restaurant, only: %i[ create edit update ]
+    before_action :set_queued_restaurant, only: %i[ index create ]
+    before_action :set_current_queue, only: %i[ destroy ]
 
     
 
     def index
-        @restaurant_q = Restaurant.search_name(params[:code])
-        if (@restaurant_q.length == 0)
-            render :status => 404
-            return
-        end
-        @restaurant_q = @restaurant_q[0]
+        @title = "Your Queues"
+        puts '----------------------------'
+        create()
     end
 
     def show
-        @current_wait_queue = WaitQueue.find_by_user_id(current_user.id)
+        @title = 'Your Queue'
+        @current_wait_queue = WaitQueue.find(params[:id])
         end_at = @current_wait_queue.end_date
         now = DateTime.now
         @minutes_left = ((end_at - now)/60).to_i
         @time_left = TimeDifference.between(end_at, now).humanize
+    end
+
+    def destroy
+        @current_queue.delete
+        respond_to do |format|
+            format.html { redirect_to root_path, notice: "Queue was left." }
+            format.json { head :no_content }
+        end
     end
 
     def create
@@ -37,14 +44,14 @@ class WaitQueueController < ApplicationController
             # If not seated check if he is in queue waiting
             user_waiting = @restaurant.wait_queue.where(user_id: current_user.id, status: "waiting")
             if (user_waiting.length > 0)
-                redirect_to wait_queue_path(@current_queue)
+                redirect_to wait_queue_path(set_current_queue)
                 return
             end
 
             # if not then is the user waiting to be seated?
             user_waiting = @restaurant.wait_queue.where(user_id: current_user.id, status: "pending")
             if (user_waiting.length > 0)
-                redirect_to wait_queue_path(@current_queue)
+                redirect_to wait_queue_path(set_current_queue)
                 return
             end
 
@@ -62,11 +69,10 @@ class WaitQueueController < ApplicationController
 
             # else create a new queue
 
-
             wait_queue_params = {
                 "start_date" => d,
                 "end_date" => d + @restaurant.queuetime.minutes,
-                "restaurant_id" => params[:restaurant_id],
+                "restaurant_id" => @restaurant.id,
                 "user_id" => current_user.id,
                 "status" => :waiting}
 
@@ -107,7 +113,17 @@ class WaitQueueController < ApplicationController
         params.require(:wait_queue).permit(:start_date, :end_date, :status, :restaurant_id)
     end
 
+    def set_queued_restaurant
+        @restaurant = Restaurant.search_name(params[:code])
+        if (@restaurant.length == 0)
+            render :status => 404
+            return
+        end
+        @restaurant = @restaurant[0]
+    end
+
     def set_current_queue
-        @current_queue = @restaurant.wait_queue.find_by user_id: current_user.id
+        # @current_queue = @restaurant.wait_queue.find_by user_id: current_user.id
+        @current_queue = WaitQueue.find(params[:id])
     end
 end

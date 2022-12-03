@@ -77,8 +77,10 @@ class RestaurantsController < InheritedResources::Base
   end
 
   def destroy
-    qr_id = @restaurant.qr_code_blob.filename
-    File.delete("tmp/#{qr_id}.png")
+    if @restaurant.qr_code.exists?
+      qr_id = @restaurant.qr_code_blob.filename
+      File.delete("tmp/#{qr_id}.png")
+    end
     super()
   end
 
@@ -97,7 +99,7 @@ class RestaurantsController < InheritedResources::Base
   end
   
   def restaurant_params
-    params.require(:restaurant).permit(:name, :address, :user_id, :queuetime)
+    params.require(:restaurant).permit(:name, :address, :user_id, :queuetime, :photo_url)
   end
 
 end

@@ -1,11 +1,25 @@
-<h2>Your Queues</h2>
 
-<% if @minutes_left == 0 %>
+<div class="container">
+    <div class="columns">
+        <div class="column is-one-third">
+            <div class="card">
+                <div class="card-content">
+                <% if @minutes_left == 0 %>
 
-Please wait to be seated!
+                Please wait to be seated!
 
-<% else %>
-<p>Waiting to be seated.</p>
-There is <strong><%= @time_left %></strong> left
+                <% else %>
+                <%= image_tag(@current_wait_queue.restaurant.photo_url ) if @current_wait_queue.restaurant.photo_url%>
+                <p class="title is-5"><%= @current_wait_queue.restaurant.name %></p>
+                <p>Waiting to be seated.</p>
+                There is <strong><%= @time_left %></strong> left
 
-<%end%>
+                <%end%>
+                </div>
+                <footer class="card-footer">
+                    <%= link_to 'Leave Queue', wait_queue_path, method: :delete, class: "card-footer-item", data: { confirm: 'Are you sure?' } %>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>

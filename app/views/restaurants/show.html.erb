@@ -3,7 +3,7 @@
 <div class="columns">
 
 <div class="column is-two-thirds">
-
+    <%= image_tag(@restaurant.photo_url,size: "250")  if @restaurant.photo_url? %>
     <p id="notice"><%= notice %></p>
     <h2>Restaurant Details</h2>
     <%= image_tag(@restaurant.qr_code,size: "250")  if @restaurant.qr_code.attached? %>

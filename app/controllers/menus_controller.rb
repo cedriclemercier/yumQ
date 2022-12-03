@@ -5,6 +5,8 @@ class MenusController < ApplicationController
 
     def index
         @menus = Menu.all
+        @table = @restaurant.restaurant_table.find_by_user_id(current_user.id)
+        puts '--------------------------------------'
     end
 
     def new
@@ -18,6 +20,8 @@ class MenusController < ApplicationController
       def edit
     end
 
+  def show
+  end
      # POST /projects or /projects.json
   def create
     @menu = @restaurant.menus.new(menu_params)

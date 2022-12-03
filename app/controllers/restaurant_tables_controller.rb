@@ -48,11 +48,21 @@ class RestaurantTablesController < ApplicationController
           end
     end
 
+    # Free a table
+    # def free
+    #     @table.update(:user_id)
+    # end
+
     def update
         # method to free one table
         @table.update(user_id: nil, occupied: false, release_at: nil)
         respond_to do |format|
-            format.html { redirect_to restaurant_restaurant_tables_path(@restaurant), notice: "Table was successfully freed." }
+            # If it is the owner, return to restaurant management page, if not, return to home
+            if @restaurant.user_id != current_user.id
+                format.html { redirect_to root_path, notice: "Table was successfully freed." }
+            else
+                format.html { redirect_to restaurant_restaurant_tables_path(@restaurant), notice: "Table was successfully freed." }
+            end
             format.json { head :no_content }
           end
     end
