@@ -1,0 +1,46 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Your Cart</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @cart_contents.each do |cart| %>
+        <tr>
+          <td><%= image_tag(cart.menu.photo_url, width: 50) %><%= cart.menu.name %></td>
+          <td><%= cart.quantity %></td>
+          <td><%= cart.quantity * cart.menu.price %></td>
+          <td><%= link_to 'Edit', edit_cart_path(cart) %></td>
+          <td><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Total: </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><%= button_to "ORDER", orders_path%></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'New Cart', new_cart_path %>
+</div>

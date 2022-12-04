@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :cart_items
+  resources :carts, :path => "/cart"
+  resources :cart
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers: { registrations: 'registrations' }
@@ -9,6 +12,7 @@ Rails.application.routes.draw do
   get '/planning', to: 'basics#index'
   match '/basics', :to => "basics#quotations", :via => [:get, :post]
   resources :basics
+  resources :orders
   resources :quotations
   resources :wait_queue
   resources :restaurants do

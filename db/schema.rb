@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_03_075828) do
+ActiveRecord::Schema.define(version: 2022_12_04_184805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,32 @@ ActiveRecord::Schema.define(version: 2022_12_03_075828) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "cart", force: :cascade do |t|
+    t.decimal "total"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_cart_on_user_id"
+  end
+
+  create_table "cart_items", force: :cascade do |t|
+    t.bigint "cart_id", null: false
+    t.bigint "menu_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.index ["menu_id"], name: "index_cart_items_on_menu_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.decimal "total"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
   create_table "menus", force: :cascade do |t|
     t.string "name"
     t.decimal "price"
@@ -92,11 +118,9 @@ ActiveRecord::Schema.define(version: 2022_12_03_075828) do
   create_table "orders", force: :cascade do |t|
     t.datetime "date"
     t.bigint "user_id", null: false
-    t.bigint "wait_queue_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
-    t.index ["wait_queue_id"], name: "index_orders_on_wait_queue_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -143,7 +167,7 @@ ActiveRecord::Schema.define(version: 2022_12_03_075828) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "queuetime"
-    t.string "photo_url"
+    t.text "photo_url"
     t.index ["user_id"], name: "index_restaurants_on_user_id"
   end
 
@@ -188,11 +212,14 @@ ActiveRecord::Schema.define(version: 2022_12_03_075828) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cart", "users"
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "cart_items", "menus"
+  add_foreign_key "carts", "users"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "order_items", "menus"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
-  add_foreign_key "orders", "wait_queues"
   add_foreign_key "restaurant_tables", "restaurants"
   add_foreign_key "restaurant_tables", "users"
   add_foreign_key "restaurants", "users"

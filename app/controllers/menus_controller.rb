@@ -54,7 +54,7 @@ class MenusController < ApplicationController
         format.html { redirect_to restaurant_path(@restaurant), notice: "Table was successfully destroyed." }
         format.json { head :no_content }
       end
-end
+  end
 
   private
 

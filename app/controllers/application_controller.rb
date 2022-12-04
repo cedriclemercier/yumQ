@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_favorites, :my_queues, :my_seats
+  helper_method :current_favorites, :my_queues, :my_seats, :set_cart
 
   def current_url(overwrite = {})
     url_for :only_path => false, :params => params.merge(overwrite)
@@ -26,10 +26,10 @@ class ApplicationController < ActionController::Base
   end
   
   def set_cart
-    @order = Order.find(session[:order_id])
+    @cart = Cart.find(session[:cart_id])
   rescue ActiveRecord::RecordNotFound
-      @order = Order.create
-      session[:order_id] = @order.id
+    @cart = Cart.create(user_id: current_user.id)
+    session[:cart_id] = @cart.id
   end
 
 end
