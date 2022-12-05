@@ -1,0 +1,28 @@
+<div class="container">
+
+    <div class="block">
+        <h2>Restaurants</h2>
+    </div>
+    <div class="columns">
+        <% @restaurants.each do |s| %>
+        <div class="column is-one-quarter">
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image is-4by3">
+                    <%= image_tag(s.photo_url ) if s.photo_url? %>
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <p class="title is-4"><%= s.name %></p>
+                    <div class="content card-image has-text-centered">
+                        <figure class="image is-356x256 is-inline-block">
+                        <%= image_tag(s.qr_code ) if s.photo_url? %>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%end%>
+    </div>
+
+</div>

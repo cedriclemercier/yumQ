@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   post '/restaurants/:id' => 'restaurants#show'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get '/solutions', to: 'site#solutions'
+  get '/browse', to: 'restaurants#browse'
   root to: 'site#index'
 end
 

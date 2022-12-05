@@ -2,6 +2,16 @@ class RestaurantsController < InheritedResources::Base
   before_action :get_user
   before_action :set_restaurant, only: %i[ show edit update destroy ]
 
+  def browse
+    @restaurants = Restaurant.all
+    puts @restaurants.inspect
+    respond_to do |format|
+      format.html
+      format.json { render json: @restaurants }
+      format.xml { render xml: @restaurants }
+      end
+  end
+
   def index
     @restaurants = Restaurant.where(user_id: @current_user)
     respond_to do |format|
