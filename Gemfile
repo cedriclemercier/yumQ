@@ -17,7 +17,9 @@ gem 'devise'
 gem 'nokogiri'
 gem 'httparty'
 gem 'csv'
-gem 'net-smtp'
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 gem 'rails_refactor'
 gem 'rqrcode', "~> 2.1"
 gem 'chunky_png', "~> 1.4"

@@ -1,1 +1,1 @@
-web: rails s -p 5000
+web: rails s -p ${PORT} -e ${RACK_ENV}
