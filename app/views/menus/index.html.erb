@@ -30,12 +30,11 @@
             <td><img src=<%= menu.photo_url %> width="200px" /></td>
             <td><%= menu.name %></td>
             <td><%= menu.price %></td>
-            <%= form_with url: cart_items_path(menu_id: menu.id, quantity: 1) do |form| %>
-              <%= hidden_field_tag 'seated_user', menu.name %>
-              <td><%= form.submit "Add to Order" %></td>
-            <%end%>
+            <td><%= button_to "Add to Order", cart_items_path(menu_id: menu.id, quantity: 1) %></td>
         </tr>
         <%end%>
+
+
         </tbody>
     </table>
     </div>
