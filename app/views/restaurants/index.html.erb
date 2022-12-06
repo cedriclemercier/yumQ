@@ -18,7 +18,11 @@
     <% @restaurants.each do |restaurant| %>
       <tr>
         <td width="200">
+         <% if @restaurant.qr_code %>
         <%= image_tag(restaurant.qr_code) if restaurant.qr_code.attached? %>
+        <%else%>
+        No image
+        <% end %>
         </td>
         <td><%= link_to image_tag(restaurant.photo_url, size: "250"), restaurant %></td>
         <td><%= restaurant.name %></td>

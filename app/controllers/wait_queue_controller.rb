@@ -15,6 +15,9 @@ class WaitQueueController < ApplicationController
     def show
         @title = 'Your Queue'
         @current_wait_queue = WaitQueue.find(params[:id])
+        rescue ActiveRecord::RecordNotFound  
+            redirect_to root_path
+        return
         end_at = @current_wait_queue.end_date
         now = DateTime.now
         @minutes_left = ((end_at - now)/60).to_i
