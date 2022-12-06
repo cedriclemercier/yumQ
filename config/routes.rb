@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :hotels do
+    resources :reviews, except: [:show, :index]
+  end
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers: { registrations: 'registrations' }

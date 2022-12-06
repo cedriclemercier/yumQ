@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<div class="col-md-7 col-md-offset-1">
+<h1 class="review_title"><strong><%= @hotel.name %></strong></h1>
+<h3><%= @hotel.description %></h3>
+<br/> <br/>
+<h2> <strong> User Reviews</strong> </h2>
+<br/>
+<h3> <strong>Average User Review </strong>: <%= render_stars(@avg_review) %></h3>
+<br />
+<% if @reviews.blank? %>
+  <h3>No reviews just yet, would you like to add the first review to this restaurant!</h3>
+  <%= link_to "Write Review", new_hotel_review_path(@hotel), class: "btn btn-danger" %>
+<% else %>
+  <% @reviews.each do |review| %>
+    <div class="reviews">
+      <h4><strong> User rating: </strong> <%= render_stars(review.rating) %></h4>
+      <h4><%= review.comment %></h4>
+      
+    </div>
+  <% end %>
+<% end %>
+</div>
+
+<%= link_to "Write a Review", new_hotel_review_path(@hotel) %>
+<br/><br/>
+<%= link_to 'Edit', edit_hotel_path(@hotel) %> |
+<%= link_to 'Back', hotels_path %>
