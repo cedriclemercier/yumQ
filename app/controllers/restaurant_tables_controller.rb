@@ -4,9 +4,22 @@ class RestaurantTablesController < ApplicationController
 
     def index
         @tables = @restaurant.restaurant_table.order(:tableno)
+        @free_tables = @restaurant.restaurant_table.where(occupied: false)
+        @queues = @restaurant.wait_queue.order(:start_date)
     end
 
     def create
+        puts '-'*100
+        if set_table_params['set_table']
+            @table_to_change = @restaurant.restaurant_table.find_by(tableno: set_table_params['set_table']['tableno'])
+            @table_to_change.update(
+                user_id: set_table_params[:seated_user], 
+                occupied: true, release_at: DateTime.now + @restaurant.queuetime.minutes
+            )
+            @q = @restaurant.wait_queue.find_by_user_id(set_table_params[:seated_user]).delete
+            redirect_to restaurant_restaurant_tables_path(@restaurant)
+            return
+        end
         # Select all tables in that restaurant and order by table no.
         tables = @restaurant.restaurant_table.pluck(:tableno)
         max_tables = tables.length
@@ -43,7 +56,11 @@ class RestaurantTablesController < ApplicationController
     def destroy
         @table.delete
         respond_to do |format|
+            if @table.user_id == current_user.id
             format.html { redirect_to restaurant_restaurant_tables_path(@restaurant), notice: "Table was successfully destroyed." }
+            else
+            format.html { redirect_to root_path, notice: "Table was successfully destroyed." }
+            end
             format.json { head :no_content }
           end
     end
@@ -75,6 +92,10 @@ class RestaurantTablesController < ApplicationController
 
     def set_restaurant_table
         @table = @restaurant.restaurant_table.find(params[:id])
+    end
+
+    def set_table_params
+        params.permit(:authenticity_token,  :seated_user, set_table: [:tableno])
     end
 
 end

@@ -1,6 +1,8 @@
 class SiteController < ApplicationController
   def index
     @title = 'Welcome'
+    puts '---------------------------------'
+    puts session['session_id']
   end
 
   def solutions

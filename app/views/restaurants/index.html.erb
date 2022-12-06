@@ -2,10 +2,11 @@
 
 <h1>My Restaurants</h1>
 
-<table>
+<table class='table'>
   <thead>
     <tr>
       <th>id</th>
+      <th>Photo</th>
       <th>Name</th>
       <th>Address</th>
       <th>Qr Code</th>
@@ -16,10 +17,10 @@
   <tbody>
     <% @restaurants.each do |restaurant| %>
       <tr>
-        <td>
+        <td width="200">
         <%= image_tag(restaurant.qr_code) if restaurant.qr_code.attached? %>
         </td>
-        <td><%= restaurant.id %></td>
+        <td><%= link_to image_tag(restaurant.photo_url, size: "250"), restaurant %></td>
         <td><%= restaurant.name %></td>
         <td><%= restaurant.address %></td>
         <td><%= link_to 'Show', restaurant %></td>

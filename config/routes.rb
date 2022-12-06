@@ -27,6 +27,10 @@ Rails.application.routes.draw do
   get '/solutions', to: 'site#solutions'
   get '/browse', to: 'restaurants#browse'
   root to: 'site#index'
+
+  devise_scope :user do
+    get '/sign-in' => "devise/sessions#new", :as => :login
+  end
 end
 
 

@@ -1,6 +1,7 @@
 class WaitQueueController < ApplicationController
 
-    before_action :set_restaurant, only: %i[ create edit update ]
+    before_action :authenticate_user!
+    before_action :set_restaurant, only: %i[ edit update ]
     before_action :set_queued_restaurant, only: %i[ index create ]
     before_action :set_current_queue, only: %i[ destroy ]
 
@@ -8,7 +9,6 @@ class WaitQueueController < ApplicationController
 
     def index
         @title = "Your Queues"
-        puts '----------------------------'
         create()
     end
 
@@ -59,8 +59,8 @@ class WaitQueueController < ApplicationController
             # check if any table is free in that restaurant
             d = DateTime.now
 
-            @get_one_table = @restaurant.restaurant_table.where(occupied: false)
-            if (@get_one_table.length > 0)
+            @get_one_table = @restaurant.restaurant_table.find_by(occupied: false)
+            if @get_one_table.present?
                 # add user to the restaurantTable if found one
                 @get_one_table.update(user_id: current_user.id, occupied: true, release_at: d + @restaurant.queuetime.minutes)
                 redirect_to restaurant_menus_path(@restaurant)

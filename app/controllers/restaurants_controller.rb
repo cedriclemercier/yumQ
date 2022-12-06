@@ -1,4 +1,5 @@
 class RestaurantsController < InheritedResources::Base
+  before_action :authenticate_user!
   before_action :get_user
   before_action :set_restaurant, only: %i[ show edit update destroy ]
 
@@ -87,10 +88,10 @@ class RestaurantsController < InheritedResources::Base
   end
 
   def destroy
-    if @restaurant.qr_code.exists?
       qr_id = @restaurant.qr_code_blob.filename
-      File.delete("tmp/#{qr_id}.png")
-    end
+      if File.exists?("tmp/#{qr_id}.png")
+        File.delete("tmp/#{qr_id}.png")
+      end
     super()
   end
 
