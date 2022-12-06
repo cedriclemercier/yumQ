@@ -10,17 +10,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <h1 class="title">Home</h1>
-        </a>
-         <% if flash[:error] %>
-            <div id="error">
-            <%= flash[:error] %>
-            </div>
-          <% end %>
-          <div id="container">
+  <div class="container">
           <div id="user_status">
           <% if user_signed_in? %>
             Welcome <%= current_user.email %>! Not you?
@@ -31,14 +21,26 @@
            <% end %>
           </div>
         </div>
+
+        <!--[if IE 6]>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <h1 class="title">Home</h1>
+        </a>
+         <% if flash[:error] %>
+            <div id="error">
+            <%= flash[:error] %>
+            </div>
+          <% end %>
         </a>
       </div>
 
       </div>
-      <div id="navbarBasicExample" class="navbar-menu">
-          <a class="navbar-item" href='/hotels'>
+      <div id="navbarBasicExample" class="navbar-menu navbar-end">
+          <%# <a class="navbar-item" href='/hotels'>
             Restaurant Reviews
-          </a>
+          </a> %>
           <a class="navbar-item" href='/solutions'>
             Index of solutions
           </a>
@@ -47,17 +49,114 @@
           </a>
        </div>
       </div>
+
+<%# MOBILE %>
+      <div class="navbar-dropdown ">
+      <a class="navbar-item" href='/solutions'>
+            Index of solutions
+          </a>
+          <a class="navbar-item" href='/browse'>
+            Browse Restaurants
+          </a>
+    </div>
+
     </nav>
-    <section class="hero">
-      <div class="hero-body">
-        <p class="title">
-          <%= @title %>
-        </p>
+
+    <![endif]-->
+
+    <nav class="navbar is-transparent" role="navigation" aria-label="dropdown navigation">
+    <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <%# <img src="https://bulma.io/images/bulma-logo.png"
+        alt="Bulma: Free, open source, and modern CSS framework based on Flexbox"
+        width="112" height="28"> %>
+        <%= link_to image_tag("logo.png", size: 180), root_path %>
+    </a>
+  
+    </div>
+
+    <div class="navbar-end navbar-dropdown">
+    <div class="navbar-item has-dropdown dropdown ">
+      <div class="navbar-burger navbar-link dropdown-trigger is-arrowless" data-target="navbarExampleTransparentExample">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-    </section>
+
+      <div class="navbar-dropdown is-boxed">
+        <a class="navbar-item" href='/browse'>
+          Browse Restaurants
+        </a>
+        <a class="navbar-item" href='/solutions'>
+          Index of Solutions
+        </a>
+        <hr class="navbar-divider">
+        <div class="navbar-item">
+          Version 0.1.0
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar-menu navbar-end">
+    <div class="navbar-item has-dropdown dropdown ">
+      <div class="navbar-burger navbar-link dropdown-trigger is-arrowless" data-target="navbarExampleTransparentExample">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="navbar-dropdown is-boxed">
+        <a class="navbar-item" href='/browse'>
+          Browse Restaurants
+        </a>
+        <a class="navbar-item" href='/solutions'>
+          Index of Solutions
+        </a>
+        <hr class="navbar-divider">
+        <div class="navbar-item">
+          Version 0.1.0
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <p class="title">
+      <%= @title %>
+    </p>
+    <p class="subtitle">
+      <%= @subtitle %>
+    </p>
+  </div>
+</section>
+    
     <section class="section">
       <%= yield %>
     </section>
     <%= render "layouts/footer" %>
   </body>
+
+      <!-- JavaScript for opening and closing of dropdown -->
+    <script>
+        var triggers =
+            document.querySelectorAll(".dropdown .dropdown-trigger");
+ 
+        triggers.forEach(function (trigger) {
+            var isopen = false;
+            trigger.addEventListener('click', function(){
+                if(isopen){
+                    trigger.parentElement.classList.remove("is-active");
+                    trigger.classList.remove("is-active");
+                    isopen = false;
+                }else{
+                    trigger.parentElement.classList.add("is-active");
+                    trigger.classList.add("is-active");
+                    isopen = true;
+                }
+            })
+        });
+    </script>
 </html>

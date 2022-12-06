@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 2022_12_05_072745) do
 
   create_table "orders", force: :cascade do |t|
     t.datetime "date"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -210,10 +210,10 @@ ActiveRecord::Schema.define(version: 2022_12_05_072745) do
     t.string "first_name"
     t.string "last_name"
     t.string "username"
+    t.integer "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "banned"
-    t.text "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -1,5 +1,5 @@
 class RestaurantTablesController < ApplicationController
-    before_action :set_restaurant
+    before_action :set_restaurant, :set_title
     before_action :set_restaurant_table, only: %i[ show edit update destroy ]
 
     def index
@@ -97,5 +97,10 @@ class RestaurantTablesController < ApplicationController
     def set_table_params
         params.permit(:authenticity_token,  :seated_user, set_table: [:tableno])
     end
+
+    def set_title
+        @title = 'Tables'
+        @subtitle = 'Manage tables'
+      end
 
 end

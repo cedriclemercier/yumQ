@@ -17,3 +17,10 @@
  body {
     margin: 0;
  }
+
+ .columns .column {
+   /* display: block!important; */
+   float: none;
+ }
+
+ 

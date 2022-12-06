@@ -2,6 +2,7 @@ class RestaurantsController < InheritedResources::Base
   before_action :authenticate_user!
   before_action :get_user
   before_action :set_restaurant, only: %i[ show edit update destroy ]
+  before_action :set_title
 
   def browse
     @restaurants = Restaurant.all
@@ -111,6 +112,11 @@ class RestaurantsController < InheritedResources::Base
   
   def restaurant_params
     params.require(:restaurant).permit(:name, :address, :user_id, :queuetime, :photo_url)
+  end
+
+  def set_title
+    @title = 'My Restaurants'
+    @subtitle = 'Manage my restaurants!'
   end
 
 end

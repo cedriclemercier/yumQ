@@ -1,5 +1,5 @@
 class MenusController < ApplicationController
-  before_action :set_restaurant
+  before_action :set_restaurant, :set_title
   before_action :set_menus, only: %i[ show edit update destroy]
   before_action :set_menu, only: %i[show edit update destroy]
 
@@ -72,6 +72,11 @@ class MenusController < ApplicationController
 
   def set_menu
     @menu = @restaurant.menus.find(params[:id])
+  end
+
+  def set_title
+    @title = 'Menu'
+    @subtitle = 'See menus!'
   end
 
 end
