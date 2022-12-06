@@ -16,12 +16,12 @@
   <tbody>
     <% @restaurants.each do |restaurant| %>
       <tr>
-        <td><%= restaurant.id %></td>
-        <td><%= restaurant.name %></td>
-        <td><%= restaurant.address %></td>
         <td>
         <%= image_tag(restaurant.qr_code) if restaurant.qr_code.attached? %>
         </td>
+        <td><%= restaurant.id %></td>
+        <td><%= restaurant.name %></td>
+        <td><%= restaurant.address %></td>
         <td><%= link_to 'Show', restaurant %></td>
         <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
         <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>

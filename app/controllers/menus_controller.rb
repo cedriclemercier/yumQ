@@ -5,6 +5,8 @@ class MenusController < ApplicationController
 
     def index
         @menus = Menu.all
+        @table = @restaurant.restaurant_table.find_by_user_id(current_user.id)
+        puts '--------------------------------------'
     end
 
     def new
@@ -18,6 +20,8 @@ class MenusController < ApplicationController
       def edit
     end
 
+  def show
+  end
      # POST /projects or /projects.json
   def create
     @menu = @restaurant.menus.new(menu_params)
@@ -50,7 +54,7 @@ class MenusController < ApplicationController
         format.html { redirect_to restaurant_path(@restaurant), notice: "Table was successfully destroyed." }
         format.json { head :no_content }
       end
-end
+  end
 
   private
 

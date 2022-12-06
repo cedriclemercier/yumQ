@@ -2,6 +2,16 @@ class RestaurantsController < InheritedResources::Base
   before_action :get_user
   before_action :set_restaurant, only: %i[ show edit update destroy ]
 
+  def browse
+    @restaurants = Restaurant.all
+    puts @restaurants.inspect
+    respond_to do |format|
+      format.html
+      format.json { render json: @restaurants }
+      format.xml { render xml: @restaurants }
+      end
+  end
+
   def index
     @restaurants = Restaurant.where(user_id: @current_user)
     respond_to do |format|
@@ -53,6 +63,8 @@ class RestaurantsController < InheritedResources::Base
     @restaurant.queuetime = default_wait_queue_time
     respond_to do |format|
       if @restaurant.save
+        #  CREATE QR CODE HERE
+        create_qr_code(@restaurant)
         format.html { redirect_to @restaurant, notice: "Restaurant was successfully created." }
         format.json { render :show, status: :created, location: @restaurant }
       else
@@ -74,6 +86,17 @@ class RestaurantsController < InheritedResources::Base
     end
   end
 
+  def destroy
+    if @restaurant.qr_code.exists?
+      qr_id = @restaurant.qr_code_blob.filename
+      File.delete("tmp/#{qr_id}.png")
+    end
+    super()
+  end
+
+  def create_qr_code(restaurant)
+    GenerateQr.new(restaurant, request.host).call()
+  end
 
   private
   
@@ -86,7 +109,7 @@ class RestaurantsController < InheritedResources::Base
   end
   
   def restaurant_params
-    params.require(:restaurant).permit(:name, :address, :user_id, :queuetime)
+    params.require(:restaurant).permit(:name, :address, :user_id, :queuetime, :photo_url)
   end
 
 end

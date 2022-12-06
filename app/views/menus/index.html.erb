@@ -1,1 +1,40 @@
-You are seated! Select your menu!
+<div class="container">
+
+    <div class="columns">
+
+        <div class="column is-half">
+            <div class="block">
+            <h2>Your Table no: <%= @table.tableno %></h2>
+            You are seated! Select your menu!
+            </div>
+        </div>
+        <div class="column is-half">
+            <%= link_to "View cart", cart_index_path %>
+        </div>
+    </div>
+
+
+    <div class="block">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Photo_URL</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th colspan="2"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for menu in @menus%>
+        <tr>
+            <td><img src=<%= menu.photo_url %> width="200px" /></td>
+            <td><%= menu.name %></td>
+            <td><%= menu.price %></td>
+            <td><%= button_to "Add to Order", cart_items_path(menu_id: menu.id, quantity: 1) %></td>
+        </tr>
+        <%end%>
+        </tbody>
+    </table>
+    </div>
+
+</div>

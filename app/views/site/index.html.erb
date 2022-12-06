@@ -1,13 +1,63 @@
-<%= form_with url: wait_queue_index_path do |form| %>
-    <%= form.label 'Create a new queue (TEMPORARY)' %>
-    <%= form.number_field :restaurant_id, :placeholder => 'Enter restaurant id' %>
-    <%= form.submit 'Create' %>
-<% end %>
+<div class="container">
 
-<%# link_to "New Queue",  wait_queue_index_path, method: :post %>
-<% if current_user%>
-<br/>
-<%= link_to "Manage restaurants",  restaurants_path %>
-<%else%>
-<p>Log in to create your restaurant</p>
-<%end%>
+    <%# Temporary %>
+    <% if false %>  
+    <%= form_with url: wait_queue_index_path do |form| %>
+        <%= form.label 'Create a new queue (TEMPORARY)' %>
+        <%= form.number_field :restaurant_id, :placeholder => 'Enter restaurant id' %>
+        <%= form.submit 'Create' %>
+    <% end %>
+    <% end %>
+
+    <% if current_user%>
+
+    <br>
+
+    <div class="columns">
+        <div class="column is-one-third">
+        <h2>Your Queues</h2>
+
+        <% my_queues.each do |q| %>
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                <%= link_to image_tag(q.restaurant.photo_url ), q if q.restaurant.photo_url? %>
+                </figure>
+            </div>
+            <div class="card-content">
+                <p class="title is-5"><%= q.restaurant.name %></p>
+                <p>Status: <strong><%= q.status %></strong></p>
+                <p>Time left: <strong><%= TimeDifference.between(DateTime.now,q.end_date).humanize %></strong></p>
+            </div>
+        </div>
+
+        <% end %>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column is-one-third">
+            <h2>Your Seats</h2>
+            <% my_seats.each do |s| %>
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                        <%= link_to image_tag(s.restaurant.photo_url ), restaurant_menus_path(s.restaurant) if s.restaurant.photo_url? %>
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <p class="title is-5"><%= s.restaurant.name %></p>
+                        <%= link_to "Order", restaurant_menus_path(s.restaurant)%>
+                        <%= link_to "Leave", restaurant_restaurant_table_path(s.restaurant, :id=> s.id), method: :patch %>
+                    </div>
+                </div>
+            <%end%>
+        </div>
+    </div>
+
+    <br/>
+    <%= link_to "Manage restaurants",  restaurants_path %>
+    <%else%>
+    <p>Log in to create your restaurant</p>
+    <%end%>
+</div>
