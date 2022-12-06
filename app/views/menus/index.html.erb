@@ -30,7 +30,7 @@
             <td><img src=<%= menu.photo_url %> width="200px" /></td>
             <td><%= menu.name %></td>
             <td><%= menu.price %></td>
-            <td><%= button_to "Add to Order", cart_items_path(menu_id: menu.id, quantity: 1) %></td>
+            <td><%= link_to "Add to Order", cart_items_path(menu_id: menu.id, quantity: 1), method: :post %></td>
         </tr>
         <%end%>
         </tbody>
