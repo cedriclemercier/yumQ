@@ -10,6 +10,7 @@
 * `/basics/`: View, edit, create, save and import your favorite quotes from famous people (PS2)
 * `/planning/`: Documentation for our project idea (PS3)
 * `/admin/` : Links to the admin page from where we can manage our users directly from the admin panel with the help of active admin (PS4)
+* `/hotels/` : Lets you add restaurants and give reviews, ratings to the existing restaurants 
 
 ## Useful gems
 

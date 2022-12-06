@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :restaurants, through: :staffs
   accepts_nested_attributes_for :restaurants
   has_many :orders
+  has_many :hotels
+  has_many :reviews, dependent: :destroy
+  validates :rating, numericality: { in: 0..5 }
 
   def active_for_authentication?
     super && special_condition_is_valid?

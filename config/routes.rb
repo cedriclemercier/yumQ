@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :hotels do
+    resources :reviews, except: [:show, :index]
+  end
   resources :cart_items
   resources :carts, :path => "/cart"
   resources :cart

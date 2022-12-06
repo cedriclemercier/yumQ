@@ -185,6 +185,9 @@ GEM
       has_scope (~> 0.6)
       railties (>= 5.2, < 7.1)
       responders (>= 2, < 4)
+    inline_svg (1.8.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     io-wait (0.2.1)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
@@ -405,6 +408,7 @@ DEPENDENCIES
   ed25519
   factory_bot_rails
   httparty
+  inline_svg
   jbuilder (~> 2.7)
   launchy
   listen (~> 3.3)
