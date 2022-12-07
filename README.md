@@ -10,11 +10,11 @@ https://yumq.herokuapp.com/
 
 * `/`: HOMEPAGE, log-in, create restaurants
 * `/solutions`: INDEX OF SOLUTIONS
-* `/news/`: Page that fetch featured news on BangkokPost and New York Times and display Headline, excerpt and a link to the article
+* `/news/`: Page that fetch featured news on BangkokPost and New York Times and display Headline, excerpt and a link to the article (PS1)
 * `/basics/`: View, edit, create, save and import your favorite quotes from famous people (PS2)
 * `/planning/`: Documentation for our project idea (PS3)
 * `/admin/` : Links to the admin page from where we can manage our users directly from the admin panel with the help of active admin (PS4)
-* `/hotels/` : Lets you add restaurants and give reviews, ratings to the existing restaurants 
+* `/hotels/` : Lets you add restaurants and give reviews, ratings to the existing restaurants.It is used in order to recommend better restaurants to the user with the help of rating (PS5)
 
 ## Useful gems
 
@@ -30,3 +30,7 @@ https://yumq.herokuapp.com/
 ## Useful Tools
 
 * `Gitleaks` : Gitleaks is used to detect and secure the exposed sensitive information such as secret keys, database passwords, ssh keys and other sensitive information in repositories
+
+## Problem Sets Documentation
+
+* All the problem sets documentations have been added into the Problem Set Documentation folder in pdf format
