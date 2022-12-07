@@ -1,5 +1,6 @@
 FactoryBot.define do
     factory :owner, class: User do
+        id {'1'}
         email { "owner@ait.asia" }
         username {"owner"}
         first_name {"test"}
@@ -21,9 +22,18 @@ FactoryBot.define do
 
     factory :restaurant do
         association :user
-        id {'1'}
+        id {'696'}
         name {"Somtam"}
         address {"At AIT"}
+        queuetime {"10"}
+    end
+
+    factory :wait_queue do
+        restaurant_id {'696'}
+        user_id {'1'}
+        start_date {DateTime.now}
+        end_date {DateTime.now}
+        status {'waiting'}
     end
 
 end

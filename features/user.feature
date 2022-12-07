@@ -1,8 +1,8 @@
-Feature:  Recipe
+Feature:  Restaurant
 
 In order to use the features of the app, as a user, I want to be able to create restaurants, add user as staff and create new menus
 
-Scenario: Create a new recipe
+Scenario: Create a new Restaurant
 
     A User should be able to create a new restaurant
 

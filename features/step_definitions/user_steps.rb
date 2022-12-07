@@ -39,7 +39,7 @@ When(/^I submit the form$/) do
 end
 
 Then(/^I should see the details of my restaurant$/) do
-    visit '/restaurants/1'
+    visit '/restaurants/696'
     expect(page).to have_content @restaurant.name
     expect(page).to have_content @restaurant.address
 end
