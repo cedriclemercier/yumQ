@@ -45,16 +45,18 @@ class GenerateQr < ApplicationService
       size: 240
     )
 
+    @restaurant.qr_code.attach(io: StringIO.new(png.to_s), filename: "#{qr_id}.png")
 
-    IO.binwrite("tmp/#{qr_id}.png", png.to_s) # Saving the generated qr code files into the tmp directory.
 
-    blob = ActiveStorage::Blob.create_after_upload!(
-      io: File.open("tmp/#{qr_id}.png"), # Retrieving the qr codes
-      filename: qr_id,
-      content_type: 'png'
-    )
+    # IO.binwrite("tmp/#{qr_id}.png", png.to_s) # Saving the generated qr code files into the tmp directory.
 
-    restaurant.qr_code.attach(blob)
+    # blob = ActiveStorage::Blob.create_after_upload!(
+    #   io: File.open("tmp/#{qr_id}.png"), # Retrieving the qr codes
+    #   filename: qr_id,
+    #   content_type: 'png'
+    # )
+
+    # restaurant.qr_code.attach(blob)
   end
 
 end
