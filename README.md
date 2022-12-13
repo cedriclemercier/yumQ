@@ -5,11 +5,11 @@
 https://yumq.herokuapp.com/
 
 ## FUTURE WORK
-* Current app lack authorization, routes need to be more protected
-* Current live website is hosted on Heroku with ephemereal storage, so QR codes generates will be deleted after being idle for a while. Need to move to AWS S3 
-* Implement payment
-* Implement SMS notifications
-* Work on complete mobile responsiveness on the user side interface
+- [ ] Current app lack authorization, routes need to be more protected
+- [X] App uses aws S3 for storage (DONE)
+- [ ] Implement payment
+- [ ] Implement SMS notifications
+- [ ] Work on complete mobile responsiveness on the user side interface
 
 ## Current features
 
