@@ -2,11 +2,11 @@
 
 ## LIVE SITE
 
-https://yumq.herokuapp.com/
+https://yumq.onrender.com/
 
 ## FUTURE WORK
 - [ ] Current app lack authorization, routes need to be more protected
-- [X] App uses aws S3 for storage (DONE)
+- [x] App uses aws S3 for storage (DONE)
 - [ ] Implement payment
 - [ ] Implement SMS notifications
 - [ ] Work on complete mobile responsiveness on the user side interface
