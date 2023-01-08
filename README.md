@@ -2,7 +2,7 @@
 
 ## LIVE SITE
 
-https://yumq.onrender.com/
+https://yumq.herokuapp.com/
 
 ## FUTURE WORK
 - [ ] Current app lack authorization, routes need to be more protected
